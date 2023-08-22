@@ -78,14 +78,32 @@ const updateUserDetails = async function(req,res){
           });
       }
 
-      
+      if (!data.address.shipping.street) {
+        return res.status(400).send({ status: false, msg: "Address Shipping street is required" });
+      }
+      if (!data.address.shipping.city) {
+        return res.status(400).send({ status: false, msg: "Address Shipping city is required" });
+      }
+      if (!data.address.shipping.pincode) {
+        return res.status(400).send({ status: false, msg: "Address Shipping pincode is required" });
+      }
+
+      if (!data.address.billing.street) {
+        return res.status(400).send({ status: false, msg: "Address billing street is required" });
+      }
+      if (!data.address.billing.city) {
+        return res.status(400).send({ status: false, msg: "Address billing city is required" });
+      }
+      if (!data.address.billing.pincode) {
+        return res.status(400).send({ status: false, msg: "Address billing pincode is required" });
+      }
      
 
    
   
 
      let updateUserDetails = await userModel.findOneAndUpdate({_id:userId},
-    {$set:{fname:data.fname, lname:data.lname, email:data.email, profileImage:data.profileImage, phone:data.phone, password:data.password}},
+    {$set:{fname:data.fname, lname:data.lname, email:data.email, profileImage:data.profileImage, phone:data.phone, password:data.password, 'address.shipping.street': data.address.shipping.street, 'address.shipping.city': data.address.shipping.city, 'address.shipping.pincode': data.address.shipping.pincode, 'address.billing.street': data.address.billing.street, 'address.billing.city': data.address.billing.city, 'address.billing.pincode': data.address.billing.pincode, }},
     {new:true})
   
     return res.status(200).send({status:true,message:"User details updated successfully", data:updateUserDetails})
