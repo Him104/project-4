@@ -7,11 +7,11 @@ let aws = require('../middleware/aws.js');
 const createUser = async function (req, res) {
     try {
       let data = req.body;
-      let files = req.files;
+      // let files = req.file;
       //let profileImage = req.file;
-      //data.profileImage = profileImage;
+     
 
-      let {fname , lname , email , phone , password,address }= data
+      let {fname , lname , email , phone , password,address, profileImage }= data
 
       if (!fname) {
         return res
@@ -63,14 +63,7 @@ const createUser = async function (req, res) {
           .send({ status: false, msg: "password is required" });
       }
   
-      if (!(password.length > 8 && password.length < 15)) {
-        return res
-          .status(400)
-          .send({
-            status: false,
-            msg: "password length should be between 8 to 15 characters"});
-      }
-
+      
       let salt = await bcrypt.genSalt(10)
       data.password = await bcrypt.hash(data.password,salt)
 
@@ -100,12 +93,12 @@ const createUser = async function (req, res) {
         return res.status(400).send({ status: false, msg: "Address billing pincode is required" });
       }
   
-if (files && files.length>0) {
-  let uploadedFileURL = await aws.uploadFile(files[0])
-  data.profileImage = uploadedFileURL}
-  else{
-    res.status(400).send({msg:"No file found"})
-  }
+// if (files && files.length>0) {
+//   let uploadedFileURL = await aws.uploadFile(files[0])
+//   data.profileImage = uploadedFileURL}
+//   else{
+//     res.status(400).send({msg:"No file found"})
+//   }
   
 
 
