@@ -14,8 +14,7 @@ const updateUserDetailsController = require('../controllers/updateUserDetailsCon
 
 const productCreateController = require('../controllers/productCreateController.js');
 const getProductDetailsController = require('../controllers/getProductDetailsController.js');
-const updateProductController = require('../controllers/updateProductController.js');
-const deleteProductController = require('../controllers/deleteProductController.js')
+
 
 
 
@@ -33,8 +32,7 @@ router.put('/user/:userId/profile', middlewares.authentication, updateUserDetail
 router.post('/products', productCreateController.createProduct);
 router.get('/products', getProductDetailsController.getProductDetails); 
 router.get('/products/:productId', getProductDetailsController.getProductDetailsById); 
-router.put('/products/:productId', updateProductController.updateProduct); 
-router.delete('/products/:productId', deleteProductController.deleteProduct); 
+
 
 
 
