@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-
+const aws = require('aws-sdk');
 const multer = require('multer');
 const route = require('./routes/route.js');
 const mongoose = require("mongoose");
-require('dotenv').config();
+require('dotenv').config({path:'.env'});
+// const multerS3 = require('multer-s3');
 const app = express();
 
 app.use(bodyParser.json());
@@ -14,6 +15,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(multer().any())
 
 mongoose.connect(process.env.mongo_uri)
+
+
 
 .then( () => console.log("MongoDB is connected"))
 

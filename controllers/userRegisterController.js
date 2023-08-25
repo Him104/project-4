@@ -1,7 +1,8 @@
 const userModel = require("../models/userModel.js");
 const validator = require('validator');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const aws = require('../middleware/aws.js');
 
 
 const createUser = async function (req, res) {
@@ -10,16 +11,18 @@ const createUser = async function (req, res) {
       //let profileImage = req.file;
       //data.profileImage = profileImage;
 
-      if (!data.fname) {
+      let {fname , lname , email , phone , password,address }= data
+
+      if (!fname) {
         return res
           .status(400)
           .send({ status: false, msg: "fname is required field" });
       }
-      if (!data.lname) {
+      if (!lname) {
         return res.status(400).send({ status: false, msg: "lname name is required" });
       }
 
-      if (!data.email) {
+      if (!email) {
         return res.status(400).send({ status: false, msg: "email is required" });
       }
 
@@ -38,14 +41,10 @@ const createUser = async function (req, res) {
           .send({ status: false, msg: "email already exists" });
       }
 
-      if (!data.profileImage) {
-        return res.status(400).send({ status: false, msg: "profileImage is required" });
-      }
-
-      if (!data.phone) {
+      if (!phone) {
         return res.status(400).send({ status: false, msg: "phone is required" });
       }
-      if (data.phone.length < 10 || data.phone.length > 10) {
+      if (phone.length < 10 || phone.length > 10) {
         return res.status(400).send({ status: false, msg: "phone no must be 10 digit" });
       }
 
@@ -57,13 +56,13 @@ const createUser = async function (req, res) {
           .send({ status: false, msg: "Phone already exists" });
       }
       
-      if (!data.password) {
+      if (!password) {
         return res
           .status(400)
           .send({ status: false, msg: "password is required" });
       }
   
-      if (!(data.password.length > 8 && data.password.length < 15)) {
+      if (!(password.length > 8 && password.length < 15)) {
         return res
           .status(400)
           .send({
@@ -72,24 +71,40 @@ const createUser = async function (req, res) {
           });
       }
 
-      if (!data.address.shipping.street) {
+      if (address) {
+
+        let addressValidation = data.address
+        
+      
+
+      if (!addressValidation.shipping.street) {
         return res.status(400).send({ status: false, msg: "Address Shipping street is required" });
       }
-      if (!data.address.shipping.city) {
+      if (!addressValidation.shipping.city) {
         return res.status(400).send({ status: false, msg: "Address Shipping city is required" });
       }
-      if (!data.address.shipping.pincode) {
+      if (!addressValidation.shipping.pincode) {
         return res.status(400).send({ status: false, msg: "Address Shipping pincode is required" });
       }
 
-      if (!data.address.billing.street) {
+      if (!addressValidation.billing.street) {
         return res.status(400).send({ status: false, msg: "Address billing street is required" });
       }
-      if (!data.address.billing.city) {
+      if (!addressValidation.billing.city) {
         return res.status(400).send({ status: false, msg: "Address billing city is required" });
       }
-      if (!data.address.billing.pincode) {
+      if (!addressValidation.billing.pincode) {
         return res.status(400).send({ status: false, msg: "Address billing pincode is required" });
+      }
+
+      let files= req.files
+      if(files && files.length>0){
+           if(!(files[0].originalname))  return res.status(400).send({ status: false, message: "Please provide image only" })
+          let uploadedFileURL= await aws.uploadFile( files[0] )
+          profileImage = uploadedFileURL
+      }
+      else{
+          res.status(400).send({ msg: "No file found" })
       }
   
       let createdUser = await userModel.create(data);
@@ -100,6 +115,8 @@ const createUser = async function (req, res) {
           message: "User created successfully",
           data: createdUser,
         });
+
+      }
     } catch (error) {
       return res.status(500).send({ msg: error.message });
     }

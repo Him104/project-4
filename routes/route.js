@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const middlewares = require('../middleware/auth.js'); 
-//const multer  = require('multer');
+const multer  = require('multer');
 //const upload = multer({ dest: 'uploads/' });
 
 
