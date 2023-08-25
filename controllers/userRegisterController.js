@@ -7,11 +7,11 @@ let aws = require('../middleware/aws.js');
 const createUser = async function (req, res) {
     try {
       let data = req.body;
-      // let files = req.file;
-      //let profileImage = req.file;
+      
+      
      
 
-      let {fname , lname , email , phone , password,address, profileImage }= data
+      let {fname , lname , email , phone , password,address}= data
 
       if (!fname) {
         return res
@@ -92,13 +92,13 @@ const createUser = async function (req, res) {
       if (!addressValidation.billing.pincode) {
         return res.status(400).send({ status: false, msg: "Address billing pincode is required" });
       }
-  
-// if (files && files.length>0) {
-//   let uploadedFileURL = await aws.uploadFile(files[0])
-//   data.profileImage = uploadedFileURL}
-//   else{
-//     res.status(400).send({msg:"No file found"})
-//   }
+      let files = req.files;
+if (files && files.length>0) {
+  let uploadedFileURL = await aws.uploadFile(files[0])
+  profileImage = uploadedFileURL}
+  else{
+    res.status(400).send({msg:"No file found"})
+  }
   
 
 
