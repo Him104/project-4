@@ -3,9 +3,9 @@ const aws = require("aws-sdk");
 // const multer = require('multer');
 // const multerS3 = require('multer-s3');
 aws.config.update({
-    accessKeyId: "AKIA4DY2WFBASIK46R5I",
-    secretAccessKey: "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",
-    region: "ap-south-1",
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.ACCESS_SECRET,
+    region: process.env.REGION
     
   })
   
@@ -16,7 +16,7 @@ aws.config.update({
   
      var uploadParams= {
         
-         Bucket: "him104-aws",  
+         Bucket: "him104",  
          Key: "abc/" + file.originalname, 
          Body: file.buffer
      }
@@ -25,6 +25,9 @@ aws.config.update({
          if(err) {
              return reject({"error": err})
          }
+
+         console.log("file has been successfully uploaded")
+         console.log(data);
           return resolve(data.Location)
      })
   
