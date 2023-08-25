@@ -15,7 +15,7 @@ const createUser = async function (req, res) {
       if (!data.fname) {
         return res
           .status(400)
-          .send({ status: false, msg: "fname is required field" });
+          .send({ status: false, msg: "fname is a required field" });
       }
       if (!data.lname) {
         return res.status(400).send({ status: false, msg: "lname name is required" });
