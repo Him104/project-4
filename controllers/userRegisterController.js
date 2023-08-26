@@ -11,7 +11,7 @@ const createUser = async function (req, res) {
       
      
 
-      let {fname , lname , email , phone , password,address}= data
+      let {fname , lname , email , phone , password,address, profileImage}= data
 
       if (!fname) {
         return res
@@ -95,7 +95,7 @@ const createUser = async function (req, res) {
       let files = req.files;
 if (files && files.length>0) {
   let uploadedFileURL = await aws.uploadFile(files[0])
-  profileImage = uploadedFileURL}
+  data.profileImage = uploadedFileURL}
   else{
     res.status(400).send({msg:"No file found"})
   }
