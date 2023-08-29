@@ -20,7 +20,7 @@ aws.config.update({
          Body: file.buffer
      }
   try {
-   const data =await s3.upload( uploadParams).promise();
+   const data = await s3.upload( uploadParams).promise();
 
       console.log("file has been successfully uploaded")
       console.log(data);
