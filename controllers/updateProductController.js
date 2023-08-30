@@ -39,7 +39,7 @@ const updateProduct = async function(req,res){
       if (duplicateTitle) { 
         return res
           .status(400)
-          .send({ status: false, msg: "This Title already exists Please Choose Other" }); 
+          .send({ status: false, msg: "This Title already exists Please Choose Other" });  
       }
       
       let files = req.files;
@@ -47,7 +47,7 @@ if (files && files.length>0) {
   let uploadedFileURL = await aws.uploadFile(files[0])
   productImage = uploadedFileURL}
   else{
-    res.status(400).send({msg:"No file found"})
+    res.status(400).send({msg:"No file found"}) 
   }
       
       

@@ -17,7 +17,9 @@ const getProductDetailsController = require('../controllers/getProductDetailsCon
 const updateProductController = require('../controllers/updateProductController.js');
 const deleteProductDetailsController = require('../controllers/deleteProductDetailsController.js');
 
+//Cart Controllers
 
+const addtoCartController = require('../controllers/addToController.js');
 
 
 
@@ -36,6 +38,8 @@ router.get('/products/:productId', getProductDetailsController.getProductDetails
 router.put('/products/:productId', updateProductController.updateProduct); 
 router.delete('/product/:productId', deleteProductDetailsController.deleteProduct);
 
+// Cart APIs
 
+router.post('/users/:userId/cart', middlewares.authorization, addtoCartController.addToCart); 
 
 module.exports = router;

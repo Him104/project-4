@@ -32,6 +32,12 @@ let authorization = async function(req,res,next){
         let decodedToken = jwt.verify(token, process.env.SECRET_KEY);
 
         let userId = req.params.userId;
+        var ObjectId = require('mongoose').Types.ObjectId;
+      if (ObjectId.isValid(userId) == false) {
+
+        return res.status(400).send({status: false, msg: "Enter a Valid UserId"});
+      }
+      
 
         let user = await userModel.findById(userId);
 
@@ -41,7 +47,7 @@ let authorization = async function(req,res,next){
             
         }
 
-     if (decodedToken.userId != user.userId) {
+     if (decodedToken.userId != user._id) {
 
         return res.status(401).send({status:false, msg : "You are not authorized"})
         
