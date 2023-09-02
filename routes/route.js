@@ -22,6 +22,9 @@ const deleteProductDetailsController = require('../controllers/deleteProductDeta
 const addtoCartController = require('../controllers/addToController.js');
 const getCartDetailsController = require('../controllers/getCartDetailsController.js');
 
+//Order Controller
+const createOrderController = require('../controllers/createOrderController.js');
+
 
 
 // Product APIs
@@ -43,5 +46,9 @@ router.delete('/product/:productId', deleteProductDetailsController.deleteProduc
 
 router.post('/users/:userId/cart', middlewares.authorization, addtoCartController.addToCart); 
 router.get('/users/:userId/cart', getCartDetailsController.getCartDetailsById); 
+
+
+//Order APIs
+router.post('/users/:userId/orders', createOrderController.createOrder); 
 
 module.exports = router;
