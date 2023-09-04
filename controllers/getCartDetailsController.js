@@ -1,28 +1,33 @@
 const cartModel = require("../models/cartModel.js");
 const userModel = require("../models/userModel.js");
-const productModel = require("../models/productModel.js");
 const mongoose = require("mongoose");
 
-const getCartDetailsById = async function (req,res) {
+
+const getCart = async function (req, res) {
     try {
-        let userId = req.params.userId;
+        const userId = req.params.userId;
+        var ObjectId = require('mongoose').Types.ObjectId;
+      if (ObjectId.isValid(userId) == false) {
 
-const cartDetails = await cartModel.findById(userId);
-    if (!cartDetails) {
-        return res
-        .status(400)
-        .send({ status: false, msg: "No cartDetails Found!" });
+        return res.status(400).send({ status: false, message: "UserId is invalid" })
+      }
+      
+  
+        const getUser = await userModel.findOne({_id : userId })
+        if (!getUser) return res.status(404).send({ status: false, message: "User not found" })
+        
+        const getData = await cartModel.findOne({ userId: userId  })
+        //.populate("items.productId")
+        if (!getData) return res.status(404).send({ status: false, message: "Cart not found" })
+  
+        return res.status(200).send({ status: true, message: "cart details", data: getData })
     }
-    return res
-        .status(200)
-        .send({ status: true, msg: "cart Details", data:cartDetails});
-     
-    } catch (error) {
-      res.status(500).send({ status: false, error: error.msg });
+    catch (error) {
+        return res.status(500).send({ status: false, message: error.message })
     }
-  };
+  }
 
-  module.exports.getCartDetailsById = getCartDetailsById;
+  module.exports.getCart = getCart;
 
 
   

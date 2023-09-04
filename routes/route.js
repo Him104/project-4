@@ -36,16 +36,18 @@ router.put('/user/:userId/profile', middlewares.authentication, updateUserDetail
 
 // Products APIs
 
-router.post('/products', productCreateController.createProduct);
-router.get('/products', getProductDetailsController.getProductDetails); 
+router.post('/products', productCreateController.createProduct); 
+router.get('/products', getProductDetailsController.getProduct); 
+//router.get('/products', getProductDetailsController.getProductDetails);
 router.get('/products/:productId', getProductDetailsController.getProductDetailsById); 
 router.put('/products/:productId', updateProductController.updateProduct); 
 router.delete('/product/:productId', deleteProductDetailsController.deleteProduct);
 
 // Cart APIs
 
-router.post('/users/:userId/cart', middlewares.authorization, addtoCartController.addToCart); 
-router.get('/users/:userId/cart', getCartDetailsController.getCartDetailsById); 
+router.post('/users/:userId/cart',  addtoCartController.createCart); 
+//router.post('/users/:userId/cart', middlewares.authorization, addtoCartController.addToCart); 
+router.get('/users/:userId/cart', getCartDetailsController.getCart); 
 
 
 //Order APIs
