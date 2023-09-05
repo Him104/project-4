@@ -26,6 +26,7 @@ const deleteCartController = require('../controllers/deleteCartController.js');
 
 //Order Controller
 const createOrderController = require('../controllers/createOrderController.js');
+const updateOrderContoller = require('../controllers/updateOrderContoller.js');
 
 
 
@@ -54,6 +55,6 @@ router.delete('/users/:userId/cart', deleteCartController.removeProduct);
 
 
 //Order APIs
-router.post('/users/:userId/orders', createOrderController.createOrder); 
-
+router.post('/users/:userId/orders', createOrderController.orderCreation); 
+router.put('/users/:userId/orders', updateOrderContoller.updateOrder); 
 module.exports = router;
