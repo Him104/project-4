@@ -21,6 +21,7 @@ const deleteProductDetailsController = require('../controllers/deleteProductDeta
 
 const addtoCartController = require('../controllers/addToController.js');
 const getCartDetailsController = require('../controllers/getCartDetailsController.js');
+const updateCartController = require('../controllers/updateCartController.js');
 const deleteCartController = require('../controllers/deleteCartController.js');
 
 
@@ -48,13 +49,14 @@ router.delete('/product/:productId', deleteProductDetailsController.deleteProduc
 
 // Cart APIs
 
-router.post('/users/:userId/cart',  addtoCartController.createCart); 
+router.post('/users/:userId/cart',  middlewares.authentication, addtoCartController.createCart); 
 //router.post('/users/:userId/cart', middlewares.authorization, addtoCartController.addToCart); 
-router.get('/users/:userId/cart', getCartDetailsController.getCart); 
-router.delete('/users/:userId/cart', deleteCartController.removeProduct); 
+router.get('/users/:userId/cart', middlewares.authentication, getCartDetailsController.getCart); 
+router.put('/users/:userId/cart', middlewares.authentication, updateCartController.removeProduct); 
+router.delete('/users/:userId/cart', middlewares.authentication, deleteCartController.deleteCart); 
 
 
 //Order APIs
-router.post('/users/:userId/orders', createOrderController.orderCreation); 
-router.put('/users/:userId/orders', updateOrderContoller.updateOrder); 
+router.post('/users/:userId/orders', middlewares.authentication, createOrderController.orderCreation); 
+router.put('/users/:userId/orders', middlewares.authentication, updateOrderContoller.updateOrder); 
 module.exports = router;
