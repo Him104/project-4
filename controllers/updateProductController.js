@@ -1,5 +1,6 @@
 const productModel = require("../models/productModel");
 const mongoose = require("mongoose");
+let aws = require('../middleware/aws.js');
 
 const updateProduct = async function(req,res){
     try {
@@ -14,6 +15,10 @@ const updateProduct = async function(req,res){
 
       return res.status(400).send({status:false, message: "Please enter a valid ProductId"});
      }
+
+     if (Object.keys(req.body).length === 0) {
+      return res.status(400).send({status:false, message: "Please enter at least one updated filed of ProductId"});
+   }
   
   
       const product = await productModel.findById(productId);
@@ -31,18 +36,24 @@ const updateProduct = async function(req,res){
 
       const duplicateTitle = await productModel.findOne({ title: data.title });
   
-      if (duplicateTitle) {
+      if (duplicateTitle) { 
         return res
           .status(400)
-          .send({ status: false, msg: "This Title already exists Please Choose Other" });
+          .send({ status: false, msg: "This Title already exists Please Choose Other" });  
       }
       
-      
+      let files = req.files;
+if (files && files.length>0) {
+  let uploadedFileURL = await aws.uploadFile(files[0])
+  productImage = uploadedFileURL}
+  else{
+    res.status(400).send({msg:"No file found"}) 
+  }
       
       
 
      const updateProduct = await productModel.findOneAndUpdate({_id:productId},
-    {$set:req.body},
+    {$set:req.body,productImage:productImage},
     {new:true})
   
     return res.status(200).send({status:true,message:"Product details updated successfully", data:updateProduct})

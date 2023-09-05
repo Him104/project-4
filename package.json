@@ -10,7 +10,7 @@
   "author": "Subhash Maurya",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1442.0",
+    "aws-sdk": "^2.1445.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
