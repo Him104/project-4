@@ -1,5 +1,6 @@
-const userModel = require("../models/userModel.js");
+const userModel = require("../models/userModel.js");      
 const jwt = require('jsonwebtoken'); 
+const bcrypt = require('bcrypt');
 
 const login = async function (req, res) {
     try {
@@ -15,8 +16,7 @@ const login = async function (req, res) {
           .send({ status: false, msg: "Password is required field" });
       }
       const userMatch = await userModel.findOne({
-        email: data.email,
-        password: data.password,
+        email: data.email
       });
       if (!userMatch) { 
         
@@ -24,6 +24,9 @@ const login = async function (req, res) {
           .status(400)
           .send({ status: false, msg: "Email or Password is incorrect please enter correct is and pass" });
       }
+      const validPassword = await bcrypt.compare(data.password, userMatch.password);
+      if (!validPassword) {return res.status(400).send('Invalid Email or Password.')} 
+
       const token = jwt.sign({ userId: userMatch._id }, process.env.SECRET_KEY, {
         expiresIn: "70h",
       });

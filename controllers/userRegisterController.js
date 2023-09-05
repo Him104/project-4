@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 let aws = require('../middleware/aws.js');
 
 
+
 const createUser = async function (req, res) {
     try {
       let data = req.body;
@@ -42,7 +43,7 @@ const createUser = async function (req, res) {
       }
 
       
-      if (!data.phone) {
+      if (!phone) {
         return res.status(400).send({ status: false, msg: "phone is required" });
       }
       if (phone.length < 10 || phone.length > 10) {

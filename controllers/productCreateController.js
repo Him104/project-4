@@ -22,9 +22,9 @@ const createProduct = async function (req, res) {
       return res.status(400).send({status:false,msg:"currencyId is required"})
   }
       
-      if (!currencyFormat) {
-        return res.status(400).send({ status: false, msg: "currencyFormat is required" });
-      }
+      // if (!currencyFormat) {
+      //   return res.status(400).send({ status: false, msg: "currencyFormat is required" });
+      // }
 
       if (!productImage) {
         return res.status(400).send({ status: false, msg: "productImage is required" });
