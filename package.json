@@ -1,13 +1,13 @@
 {
   "name": "ecommerce",
   "version": "1.0.0",
-  "description": "book publisher",
+  "description": "an ecommerce website for shopping",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "author": "Subhash Maurya",
+  "author": "Himanshu Chauhan",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1505.0",
