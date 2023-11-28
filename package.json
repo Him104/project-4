@@ -9,6 +9,9 @@
   },
   "author": "Himanshu Chauhan",
   "license": "ISC",
+  "engines": {
+    "node": "latest"
+  },
   "dependencies": {
     "aws-sdk": "^2.1505.0",
     "bcrypt": "^5.1.1",
