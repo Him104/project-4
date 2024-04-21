@@ -1,31 +1,28 @@
 const express = require('express');
-const bodyParser = require("body-parser");
-const aws = require('aws-sdk');
+const helmet = require('helmet');
+const bodyParser = require('body-parser');
 const multer = require('multer');
 const route = require('./routes/route.js');
-const mongoose = require("mongoose");
-require('dotenv').config({path:'.env'});
-// const multerS3 = require('multer-s3');
+const config = require('./config/config');
+const mongoose = require('mongoose');
+const logger = require('./config/logger');
+
+require('dotenv').config({ path: '.env' });
+
 const app = express();
 
+app.use(helmet());
 app.use(bodyParser.json());
-
-app.use(bodyParser.urlencoded({extended:true}));
-
-app.use(multer().any())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer().any());
 
 mongoose.connect(process.env.mongo_uri)
-
-
-
-.then( () => console.log("MongoDB is connected"))
-
-.catch(err => console.log(err));
+  .then(() => logger.info('MongoDB is connected'))
+  .catch(err => logger.error(`MongoDB connection error: ${err}`));
 
 app.use('/', route); 
 
-app.listen(process.env.PORT || 9000, function () {
-
-    console.log(`Ecommerce Server running on port ` + (process.env.PORT || 9000 ));
-    
-})
+const port = process.env.PORT || 9000;
+app.listen(port, () => {
+  logger.info(`Ecommerce Server running on port ${port}`);
+});
