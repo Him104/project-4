@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel.js");
 const mongoose = require("mongoose");
 const validator = require('validator');
+const config = require('../config/config')
 
 const updateUserDetails = async function(req,res){
     try {

@@ -8,8 +8,6 @@ const createUser = async function (req, res) {
     let data = req.body;
     let { fname, lname, email, phone, password, address, profileImage } = data;
 
-    // Validation and user creation logic...
-
     let files = req.files;
     if (files && files.length > 0) {
       let uploadedFileURL = await aws.uploadFile(files[0])

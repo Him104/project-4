@@ -12,7 +12,7 @@ const uploadFile = async (file) => {
 
   const uploadParams = {
 
-    Bucket: config.bucket, // Use the bucket name from config
+    Bucket: config.bucket, 
     Key: "abc/" + file.originalname,
     Body: file.buffer
   };

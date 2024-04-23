@@ -9,11 +9,13 @@ dotenv.config({ path: envFilePath });
 
 // Export environment variables
 module.exports = {
-  accessKey: process.env.ACCESS_KEY,
+  accessKey: process.env.S3_ACCESS_KEY,
   bucket: process.env.Bucket,
   mongoUri: process.env.mongo_uri,
-  accessSecret: process.env.ACCESS_SECRET,
+  accessSecret: process.env.S3_ACCESS_SECRET,
   region: process.env.REGION,
+  port: process.env.PORT,
+  jwtSecret: process.env.JWT_SECRET,
 };
 
 logger.info('Environment variables loaded successfully');
