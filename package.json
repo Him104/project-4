@@ -1,26 +1,35 @@
 {
   "name": "ecommerce",
   "version": "1.0.0",
-  "description": "an ecommerce website for shopping",
+  "description": "An ecommerce website for shopping",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "eslint .",
+    "build": "babel controllers/ middleware/ models/ -d dist"
   },
   "author": "Himanshu Chauhan",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1604.0",
+    "aws-sdk": "^2.1613.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
-    "joi": "^17.13.0",
+    "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.3.2",
+    "mongoose": "^8.3.3",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.1.0",
+    "npm-check-updates": "^16.14.20",
     "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
+    "eslint": "^9.2.0",
+    "nodemon": "^3.1.0"
   }
 }

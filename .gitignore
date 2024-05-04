@@ -1,2 +1,25 @@
-node_modules
+# Dependency directories
+/node_modules/
+
+# Built files
+/dist/
+
+# Logs
+/logs/
+
+# Uploaded files (if applicable)
+/uploads/
+
+# Environment variables
 .env
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# npm lock files
+package-lock.json
