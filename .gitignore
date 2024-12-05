@@ -1,25 +1,66 @@
-# Dependency directories
-/node_modules/
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Built files
-/dist/
+# Build outputs
+dist/
+build/
+coverage/
 
-# Logs
-/logs/
+# Runtime data
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
 
-# Uploaded files (if applicable)
-/uploads/
-
-# Environment variables
+# Environment files
 .env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
 
-# Editor directories and files
-.vscode/
+# IDE and Editor files
 .idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.sublime-workspace
+*.sublime-project
 
 # OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# npm lock files
+# Package files
 package-lock.json
+yarn.lock
+
+# Application specific
+uploads/
+tmp/
+temp/
+.cache/
+.temp/
+public/uploads/
+public/temp/
+
+# AWS credentials
+.aws/
+aws.json
+
+# Test coverage
+coverage/
+.nyc_output/
