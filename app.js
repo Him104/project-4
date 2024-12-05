@@ -6,12 +6,14 @@ const route = require('./routes/route.js');
 const config = require('./config/config');
 const mongoose = require('mongoose');
 const logger = require('./config/logger');
+const cors = require('cors');
 
 require('dotenv').config({ path: '.env' });
 
 const app = express();
 
 app.use(helmet());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer().any());
