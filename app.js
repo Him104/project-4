@@ -17,15 +17,16 @@ const app = express();
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || config.frontendUrls.includes(origin)) {
+    // Hardcoded allowed origin
+    if (!origin || origin === 'http://localhost:5173') {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  credentials: true, // Allow credentials like cookies
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };
 
 app.use(cors(corsOptions));

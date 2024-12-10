@@ -414,3 +414,11 @@
 [INFO] 2024-12-05T18:05:33.608Z: Environment variables loaded successfully
 [INFO] 2024-12-05T18:05:34.763Z: Ecommerce Server running on port 9000
 [INFO] 2024-12-05T18:05:35.322Z: MongoDB is connected
+[INFO] 2024-12-05T18:07:31.354Z: Loading environment variables from C:\Users\himan\Downloads\project-4\.env
+[INFO] 2024-12-05T18:07:31.361Z: Environment variables loaded successfully
+[INFO] 2024-12-05T18:07:32.619Z: Ecommerce Server running on port 9000
+[INFO] 2024-12-05T18:07:33.576Z: MongoDB is connected
+[INFO] 2024-12-05T18:21:19.233Z: Loading environment variables from C:\Users\himan\Downloads\project-4\.env
+[INFO] 2024-12-05T18:21:19.240Z: Environment variables loaded successfully
+[INFO] 2024-12-05T18:21:20.784Z: Ecommerce Server running on port 9000
+[INFO] 2024-12-05T18:21:21.541Z: MongoDB is connected
