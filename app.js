@@ -10,15 +10,16 @@ const cors = require('cors');
 const compression = require('compression');
 const mongoSanitize = require('express-mongo-sanitize');
 
-
 require('dotenv').config({ path: '.env' });
 
 const app = express();
 
+// Updated CORS Configuration
 const corsOptions = {
   origin: function (origin, callback) {
-    // Hardcoded allowed origin
-    if (!origin || origin === 'http://localhost:5173') {
+    // Allow requests from localhost or other trusted origins
+    const allowedOrigins = ['http://localhost:5173', 'https://your-deployed-frontend.com'];
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -26,29 +27,37 @@ const corsOptions = {
   },
   credentials: true, // Allow credentials like cookies
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'], // Explicitly allow x-api-key
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Enable CORS middleware
 
-
+// Security middleware
 app.use(helmet());
 app.use(compression());
 app.use(mongoSanitize());
+
+// Body parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Multer for handling multipart/form-data
 app.use(multer().any());
+
+// JSON middleware
 app.use(express.json());
 
-
-
-mongoose.connect(process.env.mongo_uri)
+// MongoDB Connection
+mongoose
+  .connect(process.env.mongo_uri)
   .then(() => logger.info('MongoDB is connected'))
-  .catch(err => logger.error(`MongoDB connection error: ${err}`));
+  .catch((err) => logger.error(`MongoDB connection error: ${err}`));
 
-app.use('/', route); 
+// Routes
+app.use('/', route);
 
+// Start the server
 const port = process.env.PORT || 9000;
-app.listen(config.port, () => {
+app.listen(port, () => {
   logger.info(`Ecommerce Server running on port ${port}`);
 });
